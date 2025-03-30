@@ -96,18 +96,56 @@ namespace ToDoListOOP
             tasks.Add(task);
         }
 
-        public void CompleteTask(int taskNumber)
+        public void CompleteTask(bool isWorkTask)
         {
-            if (taskNumber >= 0 && taskNumber < tasks.Count)
+            var filteredTasks = tasks.Where(t => t is WorkTask == isWorkTask).OrderBy(t => t.Priority).ToList();
+
+            if (filteredTasks.Count == 0)
             {
-                tasks[taskNumber].CompleteTask();
+                Console.WriteLine("No tasks found.");
+                return;
+            }
+
+            for (int i = 0; i < filteredTasks.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {filteredTasks[i].Description} - Priority: {filteredTasks[i].Priority}");
+            }
+
+            Console.WriteLine("Enter task number to complete:");
+            string? input = Console.ReadLine();
+            if (int.TryParse(input, out int taskIndex) && taskIndex >= 1 && taskIndex <= filteredTasks.Count)
+            {
+                var selectedTask = filteredTasks[taskIndex - 1];
+                selectedTask.CompleteTask();
+                tasks.Remove(selectedTask);
+            }
+            else
+            {
+                Console.WriteLine("\u2757 Invalid task number.");
             }
         }
 
-        public void EditTask(int taskNumber)
+        public void EditTask(bool isWorkTask)
         {
-            if (taskNumber >= 0 && taskNumber < tasks.Count)
+            var filteredTasks = tasks.Where(t => t is WorkTask == isWorkTask).OrderBy(t => t.Priority).ToList();
+
+            if (filteredTasks.Count == 0)
             {
+                Console.WriteLine("No tasks found.");
+                return;
+            }
+
+            for (int i = 0; i < filteredTasks.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {filteredTasks[i].Description} - Priority: {filteredTasks[i].Priority}");
+            }
+
+            Console.WriteLine("Enter task number to edit:");
+            string? input = Console.ReadLine();
+            if (int.TryParse(input, out int taskIndex) && taskIndex >= 1 && taskIndex <= filteredTasks.Count)
+            {
+                var selectedTask = filteredTasks[taskIndex - 1];
+
                 Console.WriteLine("Enter new description:");
                 string? newDesc = Console.ReadLine();
                 Console.WriteLine("Enter new priority:");
@@ -115,7 +153,7 @@ namespace ToDoListOOP
 
                 if (!string.IsNullOrWhiteSpace(newDesc) && int.TryParse(newPriorityInput, out int newPriority))
                 {
-                    tasks[taskNumber].EditTask(newDesc, newPriority);
+                    selectedTask.EditTask(newDesc, newPriority);
                     Console.WriteLine("Task updated successfully!");
                 }
                 else
@@ -123,24 +161,26 @@ namespace ToDoListOOP
                     Console.WriteLine("\u2757 Invalid input. Task not updated.");
                 }
             }
-        }
-
-        public void RemoveTask(int taskNumber)
-        {
-            if (taskNumber >= 0 && taskNumber < tasks.Count)
+            else
             {
-                tasks.RemoveAt(taskNumber);
+                Console.WriteLine("\u2757 Invalid task number.");
             }
         }
 
-        public void DisplayTasks()
+        public void DisplayTasks(bool isWorkTask)
         {
-            var sortedTasks = tasks.OrderBy(t => t.Priority).ToList();
-            for (int i = 0; i < sortedTasks.Count; i++)
+            var filteredTasks = tasks.Where(t => t is WorkTask == isWorkTask).OrderBy(t => t.Priority).ToList();
+            if (filteredTasks.Count == 0)
             {
-                Console.WriteLine($"{i + 1}. {sortedTasks[i].Description} - {(sortedTasks[i].IsComplete ? "✅ Complete" : "❌ Incomplete")} - Priority: {sortedTasks[i].Priority} - Type: {sortedTasks[i].GetType().Name}");
+                Console.WriteLine("No tasks found.");
+                return;
+            }
 
-                if (sortedTasks[i] is WorkTask workTask)
+            for (int i = 0; i < filteredTasks.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {filteredTasks[i].Description} - Priority: {filteredTasks[i].Priority} - Type: {filteredTasks[i].GetType().Name}");
+
+                if (filteredTasks[i] is WorkTask workTask)
                 {
                     Console.WriteLine($"   🗓️ Due Date: {workTask.DueDate:dd-MM-yyyy}");
                 }
@@ -231,39 +271,49 @@ namespace ToDoListOOP
                         break;
 
                     case "3":
-                        toDoList.DisplayTasks();
-                        Console.WriteLine("Enter task number to complete:");
-                        string? taskNumInput = Console.ReadLine();
+                        Console.WriteLine("Select task type to complete:");
+                        Console.WriteLine("1. Work Task");
+                        Console.WriteLine("2. Personal Task");
+                        string? completeType = Console.ReadLine();
+                        if (completeType == "1")
+                            toDoList.CompleteTask(true);
+                        else if (completeType == "2")
+                            toDoList.CompleteTask(false);
+                        else
+                            Console.WriteLine("\u2757 Invalid option.");
 
-                        if (!int.TryParse(taskNumInput, out int taskNumber))
-                        {
-                            Console.WriteLine("\u2757 Invalid task number.");
-                            break;
-                        }
-
-                        toDoList.CompleteTask(taskNumber - 1);
                         Console.ReadLine();
                         Console.Clear();
                         break;
 
                     case "4":
-                        toDoList.DisplayTasks();
-                        Console.WriteLine("Enter task number to edit:");
-                        string? editNumInput = Console.ReadLine();
+                        Console.WriteLine("Select task type to edit:");
+                        Console.WriteLine("1. Work Task");
+                        Console.WriteLine("2. Personal Task");
+                        string? editType = Console.ReadLine();
+                        if (editType == "1")
+                            toDoList.EditTask(true);
+                        else if (editType == "2")
+                            toDoList.EditTask(false);
+                        else
+                            Console.WriteLine("\u2757 Invalid option.");
 
-                        if (!int.TryParse(editNumInput, out int editNumber))
-                        {
-                            Console.WriteLine("\u2757 Invalid task number.");
-                            break;
-                        }
-
-                        toDoList.EditTask(editNumber - 1);
                         Console.ReadLine();
                         Console.Clear();
                         break;
 
                     case "5":
-                        toDoList.DisplayTasks();
+                        Console.WriteLine("Select task type to display:");
+                        Console.WriteLine("1. Work Task");
+                        Console.WriteLine("2. Personal Task");
+                        string? displayType = Console.ReadLine();
+                        if (displayType == "1")
+                            toDoList.DisplayTasks(true);
+                        else if (displayType == "2")
+                            toDoList.DisplayTasks(false);
+                        else
+                            Console.WriteLine("\u2757 Invalid option.");
+
                         Console.ReadLine();
                         Console.Clear();
                         break;
