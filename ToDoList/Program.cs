@@ -26,7 +26,13 @@ namespace ToDoListOOP
 
     public class WorkTask : Task
     {
-        public WorkTask(string description, int priority) : base(description, priority) { }
+        public DateTime DueDate { get; set; }
+
+        public WorkTask(string description, int priority, DateTime dueDate)
+            : base(description, priority)
+        {
+            DueDate = dueDate;
+        }
 
         public override void CompleteTask()
         {
@@ -82,6 +88,11 @@ namespace ToDoListOOP
             for (int i = 0; i < sortedTasks.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {sortedTasks[i].Description} - {(sortedTasks[i].IsComplete ? "✅ Complete" : "❌ Incomplete")} - Priority: {sortedTasks[i].Priority} - Type: {sortedTasks[i].GetType().Name}");
+
+                if (sortedTasks[i] is WorkTask workTask)
+                {
+                    Console.WriteLine($"   🗓️ Due Date: {workTask.DueDate:dddd, dd MMMM yyyy}");
+                }
             }
         }
     }
@@ -94,7 +105,7 @@ namespace ToDoListOOP
 
             while (true)
             {
-                Console.WriteLine("📋 To-Do List OOP Edition");
+                Console.WriteLine("To-Do List OOP Edition");
                 Console.WriteLine("1. Add Work Task");
                 Console.WriteLine("2. Add Personal Task");
                 Console.WriteLine("3. Complete Task");
@@ -111,7 +122,7 @@ namespace ToDoListOOP
 
                         if (string.IsNullOrWhiteSpace(workDesc))
                         {
-                            Console.WriteLine("❗ Description cannot be empty.");
+                            Console.WriteLine("\u2757 Description cannot be empty.");
                             break;
                         }
 
@@ -120,11 +131,29 @@ namespace ToDoListOOP
 
                         if (!int.TryParse(workPriorityInput, out int workPriority))
                         {
-                            Console.WriteLine("❗ Invalid priority.");
+                            Console.WriteLine("\u2757 Invalid priority.");
                             break;
                         }
 
-                        toDoList.AddTask(new WorkTask(workDesc, workPriority));
+                        Console.WriteLine("Enter due day (1-31):");
+                        string? dayInput = Console.ReadLine();
+
+                        Console.WriteLine("Enter due month (1-12):");
+                        string? monthInput = Console.ReadLine();
+
+                        Console.WriteLine("Enter due year (e.g. 2025):");
+                        string? yearInput = Console.ReadLine();
+
+                        if (!int.TryParse(dayInput, out int day) ||
+                            !int.TryParse(monthInput, out int month) ||
+                            !int.TryParse(yearInput, out int year) ||
+                            !DateTime.TryParse($"{year}-{month}-{day}", out DateTime dueDate))
+                        {
+                            Console.WriteLine("\u2757 Invalid date.");
+                            break;
+                        }
+
+                        toDoList.AddTask(new WorkTask(workDesc, workPriority, dueDate));
                         Console.Clear();
                         break;
 
@@ -134,7 +163,7 @@ namespace ToDoListOOP
 
                         if (string.IsNullOrWhiteSpace(personalDesc))
                         {
-                            Console.WriteLine("❗ Description cannot be empty.");
+                            Console.WriteLine("\u2757 Description cannot be empty.");
                             break;
                         }
 
@@ -143,7 +172,7 @@ namespace ToDoListOOP
 
                         if (!int.TryParse(personalPriorityInput, out int personalPriority))
                         {
-                            Console.WriteLine("❗ Invalid priority.");
+                            Console.WriteLine("\u2757 Invalid priority.");
                             break;
                         }
 
@@ -158,7 +187,7 @@ namespace ToDoListOOP
 
                         if (!int.TryParse(taskNumInput, out int taskNumber))
                         {
-                            Console.WriteLine("❗ Invalid task number.");
+                            Console.WriteLine("\u2757 Invalid task number.");
                             break;
                         }
 
@@ -178,7 +207,7 @@ namespace ToDoListOOP
                         return;
 
                     default:
-                        Console.WriteLine("❗ Invalid option.");
+                        Console.WriteLine("\u2757 Invalid option.");
                         break;
                 }
             }

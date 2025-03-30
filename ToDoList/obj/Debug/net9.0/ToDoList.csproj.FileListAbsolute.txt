@@ -12,3 +12,4 @@
 /Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ToDoList.pdb
 /Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ToDoList.genruntimeconfig.cache
 /Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ref/ToDoList.dll
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ToDoList.sourcelink.json
