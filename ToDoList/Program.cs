@@ -156,7 +156,7 @@ namespace ToDoListOOP
 
             while (true)
             {
-                Console.WriteLine("To-Do List OOP Edition");
+                Console.WriteLine("To-Do List Menu:");
                 Console.WriteLine("1. Add Work Task");
                 Console.WriteLine("2. Add Personal Task");
                 Console.WriteLine("3. Complete Task");
