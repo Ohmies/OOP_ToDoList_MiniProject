@@ -22,6 +22,12 @@ namespace ToDoListOOP
             IsComplete = true;
             Console.WriteLine("Task completed!");
         }
+
+        public virtual void EditTask(string description, int priority)
+        {
+            Description = description;
+            Priority = priority;
+        }
     }
 
     public class WorkTask : Task
@@ -38,6 +44,30 @@ namespace ToDoListOOP
         {
             base.CompleteTask();
             Console.WriteLine("You completed a work task. Nice job! 💼");
+        }
+
+        public override void EditTask(string description, int priority)
+        {
+            base.EditTask(description, priority);
+
+            Console.WriteLine("Enter new due day (1-31):");
+            string? dayInput = Console.ReadLine();
+            Console.WriteLine("Enter new due month (1-12):");
+            string? monthInput = Console.ReadLine();
+            Console.WriteLine("Enter new due year (e.g. 2025):");
+            string? yearInput = Console.ReadLine();
+
+            if (int.TryParse(dayInput, out int day) &&
+                int.TryParse(monthInput, out int month) &&
+                int.TryParse(yearInput, out int year) &&
+                DateTime.TryParse($"{year}-{month}-{day}", out DateTime newDueDate))
+            {
+                DueDate = newDueDate;
+            }
+            else
+            {
+                Console.WriteLine("\u2757 Invalid due date input. Keeping the old due date.");
+            }
         }
     }
 
@@ -74,6 +104,27 @@ namespace ToDoListOOP
             }
         }
 
+        public void EditTask(int taskNumber)
+        {
+            if (taskNumber >= 0 && taskNumber < tasks.Count)
+            {
+                Console.WriteLine("Enter new description:");
+                string? newDesc = Console.ReadLine();
+                Console.WriteLine("Enter new priority:");
+                string? newPriorityInput = Console.ReadLine();
+
+                if (!string.IsNullOrWhiteSpace(newDesc) && int.TryParse(newPriorityInput, out int newPriority))
+                {
+                    tasks[taskNumber].EditTask(newDesc, newPriority);
+                    Console.WriteLine("Task updated successfully!");
+                }
+                else
+                {
+                    Console.WriteLine("\u2757 Invalid input. Task not updated.");
+                }
+            }
+        }
+
         public void RemoveTask(int taskNumber)
         {
             if (taskNumber >= 0 && taskNumber < tasks.Count)
@@ -91,7 +142,7 @@ namespace ToDoListOOP
 
                 if (sortedTasks[i] is WorkTask workTask)
                 {
-                    Console.WriteLine($"   🗓️ Due Date: {workTask.DueDate:dddd, dd MMMM yyyy}");
+                    Console.WriteLine($"   🗓️ Due Date: {workTask.DueDate:dd-MM-yyyy}");
                 }
             }
         }
@@ -109,8 +160,9 @@ namespace ToDoListOOP
                 Console.WriteLine("1. Add Work Task");
                 Console.WriteLine("2. Add Personal Task");
                 Console.WriteLine("3. Complete Task");
-                Console.WriteLine("4. Display Tasks");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("4. Edit Task");
+                Console.WriteLine("5. Display Tasks");
+                Console.WriteLine("6. Exit");
 
                 var input = Console.ReadLine();
 
@@ -137,10 +189,8 @@ namespace ToDoListOOP
 
                         Console.WriteLine("Enter due day (1-31):");
                         string? dayInput = Console.ReadLine();
-
                         Console.WriteLine("Enter due month (1-12):");
                         string? monthInput = Console.ReadLine();
-
                         Console.WriteLine("Enter due year (e.g. 2025):");
                         string? yearInput = Console.ReadLine();
 
@@ -192,18 +242,33 @@ namespace ToDoListOOP
                         }
 
                         toDoList.CompleteTask(taskNumber - 1);
-                        toDoList.RemoveTask(taskNumber - 1);
                         Console.ReadLine();
                         Console.Clear();
                         break;
 
                     case "4":
                         toDoList.DisplayTasks();
+                        Console.WriteLine("Enter task number to edit:");
+                        string? editNumInput = Console.ReadLine();
+
+                        if (!int.TryParse(editNumInput, out int editNumber))
+                        {
+                            Console.WriteLine("\u2757 Invalid task number.");
+                            break;
+                        }
+
+                        toDoList.EditTask(editNumber - 1);
                         Console.ReadLine();
                         Console.Clear();
                         break;
 
                     case "5":
+                        toDoList.DisplayTasks();
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
+
+                    case "6":
                         return;
 
                     default:
