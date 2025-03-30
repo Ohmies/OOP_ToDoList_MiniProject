@@ -1,0 +1,14 @@
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/bin/Debug/net9.0/ToDoList
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/bin/Debug/net9.0/ToDoList.deps.json
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/bin/Debug/net9.0/ToDoList.runtimeconfig.json
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/bin/Debug/net9.0/ToDoList.dll
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/bin/Debug/net9.0/ToDoList.pdb
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ToDoList.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ToDoList.AssemblyInfoInputs.cache
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ToDoList.AssemblyInfo.cs
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ToDoList.csproj.CoreCompileInputs.cache
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ToDoList.dll
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/refint/ToDoList.dll
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ToDoList.pdb
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ToDoList.genruntimeconfig.cache
+/Users/ohmies/Documents/WorkSpace/Coding_Area/OOP_ToDoList_MiniProject/ToDoList/obj/Debug/net9.0/ref/ToDoList.dll
